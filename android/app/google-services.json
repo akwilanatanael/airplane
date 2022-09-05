@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "306732693573",
+    "project_id": "airplane-2895d",
+    "storage_bucket": "airplane-2895d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:306732693573:android:d631e4130dc387301c0b2c",
+        "android_client_info": {
+          "package_name": "com.akwilanata.flutter_application_1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "306732693573-sgomvohorfqfarav12p1es680d5a1fjq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCacHK3ovNn5L6ttuQAcnGknoKOM0vm3IE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "306732693573-sgomvohorfqfarav12p1es680d5a1fjq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
