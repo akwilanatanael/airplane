@@ -2,13 +2,26 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/cubit/auth_cubit.dart';
+import 'package:flutter_application_1/cubit/destination_cubit.dart';
 import 'package:flutter_application_1/ui/widgets/destination_card.dart';
 import 'package:flutter_application_1/ui/widgets/destination_tile.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../models/destination_model.dart';
 import '../../shared/theme.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    context.read<DestinationCubit>().fetchDestinations();
+    super.initState();
+  }
 
   Widget header() {
     return BlocBuilder<AuthCubit, AuthState>(
@@ -67,51 +80,21 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget popularDestination() {
+  Widget popularDestination(List<DestinationModel> destinations) {
     return Container(
       margin: EdgeInsets.only(top: 30, bottom: 30),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
-          children: [
-            DestinationCard(
-              namaDestinasi: 'Lake Ciliwung',
-              kotaDestinasi: 'Tangerang',
-              imageUrl: 'assets/image_destination1.png',
-              ratingDestinasi: 4.8,
-            ),
-            DestinationCard(
-              namaDestinasi: 'White Houses',
-              kotaDestinasi: 'Spain',
-              imageUrl: 'assets/image_destination2.png',
-              ratingDestinasi: 4.8,
-            ),
-            DestinationCard(
-              namaDestinasi: 'Hill Heyo',
-              kotaDestinasi: 'Monaco',
-              imageUrl: 'assets/image_destination3.png',
-              ratingDestinasi: 3.2,
-            ),
-            DestinationCard(
-              namaDestinasi: 'Menarra',
-              kotaDestinasi: 'Japan',
-              imageUrl: 'assets/image_destination4.png',
-              ratingDestinasi: 4.1,
-            ),
-            DestinationCard(
-              namaDestinasi: 'Payung Teduh',
-              kotaDestinasi: 'Singapore',
-              imageUrl: 'assets/image_destination5.png',
-              ratingDestinasi: 4.5,
-              margin: EdgeInsets.only(right: 24),
-            ),
-          ],
+          children: destinations.map((DestinationModel destination) {
+            return DestinationCard(destination);
+          }).toList(),
         ),
       ),
     );
   }
 
-  Widget newDestination() {
+  Widget newDestination(List<DestinationModel> destinations) {
     return Container(
       margin: EdgeInsets.only(
         top: 30,
@@ -129,36 +112,11 @@ class HomePage extends StatelessWidget {
               fontWeight: semibold,
             ),
           ),
-          DestinationTile(
-            imageUrl: 'assets/image_destination6.png',
-            namaDestinasi: 'Danau Beratan',
-            lokasiDestinasi: 'Singaraja',
-            ratingDestinasi: 4.5,
-          ),
-          DestinationTile(
-            imageUrl: 'assets/image_destination7.png',
-            namaDestinasi: 'Sydney Opera',
-            lokasiDestinasi: 'Australia',
-            ratingDestinasi: 4.7,
-          ),
-          DestinationTile(
-            imageUrl: 'assets/image_destination8.png',
-            namaDestinasi: 'Roma',
-            lokasiDestinasi: 'Italy',
-            ratingDestinasi: 4.8,
-          ),
-          DestinationTile(
-            imageUrl: 'assets/image_destination9.png',
-            namaDestinasi: 'Payung Teduh',
-            lokasiDestinasi: 'Singapore',
-            ratingDestinasi: 4.8,
-          ),
-          DestinationTile(
-            imageUrl: 'assets/image_destination10.png',
-            namaDestinasi: 'Hill Hey',
-            lokasiDestinasi: 'Monaco',
-            ratingDestinasi: 4.7,
-          ),
+          Column(
+            children: destinations.map((DestinationModel destination) {
+              return DestinationTile(destination);
+            }).toList(),
+          )
         ],
       ),
     );
@@ -166,12 +124,31 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        header(),
-        popularDestination(),
-        newDestination(),
-      ],
+    return BlocConsumer<DestinationCubit, DestinationState>(
+      listener: (context, state) {
+        if (state is DestinationFailed) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.error),
+              backgroundColor: kRedColor,
+            ),
+          );
+        }
+      },
+      builder: (context, state) {
+        if (state is DestinationSuccess) {
+          return ListView(
+            children: [
+              header(),
+              popularDestination(state.destinations),
+              newDestination(state.destinations),
+            ],
+          );
+        }
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      },
     );
   }
 }
