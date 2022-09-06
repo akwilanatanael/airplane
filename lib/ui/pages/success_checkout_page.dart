@@ -1,8 +1,11 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/cubit/page_cubit.dart';
 import 'package:flutter_application_1/ui/widgets/custom_button.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../shared/theme.dart';
+import 'package:bloc/bloc.dart';
 
 class SuccessCheckoutPage extends StatelessWidget {
   const SuccessCheckoutPage({Key? key}) : super(key: key);
@@ -29,7 +32,8 @@ class SuccessCheckoutPage extends StatelessWidget {
                 children: [
                   Text(
                     'Well Booked 😍',
-                    style: blackTextStyle.copyWith(fontSize: 32, fontWeight: semibold),
+                    style: blackTextStyle.copyWith(
+                        fontSize: 32, fontWeight: semibold),
                   ),
                   SizedBox(height: 10),
                   Text(
@@ -44,7 +48,9 @@ class SuccessCheckoutPage extends StatelessWidget {
                   CustomButton(
                     title: 'My Bookings',
                     onPressed: () {
-                      Navigator.pushNamedAndRemoveUntil(context, '/main', (route) => false);
+                      context.read<PageCubit>().setPage(1);
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, '/main', (route) => false);
                     },
                     width: 220,
                   ),

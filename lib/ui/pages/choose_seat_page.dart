@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/cubit/seat_cubit.dart';
 import 'package:flutter_application_1/models/destination_model.dart';
+import 'package:flutter_application_1/models/transaction_model.dart';
 import 'package:flutter_application_1/ui/pages/checkout_page.dart';
 import 'package:flutter_application_1/ui/widgets/custom_button.dart';
 import 'package:flutter_application_1/ui/widgets/seat_item.dart';
@@ -100,7 +101,8 @@ class ChooseSeatPage extends StatelessWidget {
                       child: Center(
                         child: Text(
                           'A',
-                          style: greyTextStyle.copyWith(fontSize: 16, fontWeight: regular),
+                          style: greyTextStyle.copyWith(
+                              fontSize: 16, fontWeight: regular),
                         ),
                       ),
                     ),
@@ -110,7 +112,8 @@ class ChooseSeatPage extends StatelessWidget {
                       child: Center(
                         child: Text(
                           'B',
-                          style: greyTextStyle.copyWith(fontSize: 16, fontWeight: regular),
+                          style: greyTextStyle.copyWith(
+                              fontSize: 16, fontWeight: regular),
                         ),
                       ),
                     ),
@@ -120,7 +123,8 @@ class ChooseSeatPage extends StatelessWidget {
                       child: Center(
                         child: Text(
                           '  ',
-                          style: greyTextStyle.copyWith(fontSize: 16, fontWeight: regular),
+                          style: greyTextStyle.copyWith(
+                              fontSize: 16, fontWeight: regular),
                         ),
                       ),
                     ),
@@ -130,7 +134,8 @@ class ChooseSeatPage extends StatelessWidget {
                       child: Center(
                         child: Text(
                           'C',
-                          style: greyTextStyle.copyWith(fontSize: 16, fontWeight: regular),
+                          style: greyTextStyle.copyWith(
+                              fontSize: 16, fontWeight: regular),
                         ),
                       ),
                     ),
@@ -140,7 +145,8 @@ class ChooseSeatPage extends StatelessWidget {
                       child: Center(
                         child: Text(
                           'D',
-                          style: greyTextStyle.copyWith(fontSize: 16, fontWeight: regular),
+                          style: greyTextStyle.copyWith(
+                              fontSize: 16, fontWeight: regular),
                         ),
                       ),
                     ),
@@ -163,7 +169,8 @@ class ChooseSeatPage extends StatelessWidget {
                         child: Center(
                           child: Text(
                             '1',
-                            style: greyTextStyle.copyWith(fontWeight: regular, fontSize: 16),
+                            style: greyTextStyle.copyWith(
+                                fontWeight: regular, fontSize: 16),
                           ),
                         ),
                       ),
@@ -193,7 +200,8 @@ class ChooseSeatPage extends StatelessWidget {
                         child: Center(
                           child: Text(
                             '2',
-                            style: greyTextStyle.copyWith(fontWeight: regular, fontSize: 16),
+                            style: greyTextStyle.copyWith(
+                                fontWeight: regular, fontSize: 16),
                           ),
                         ),
                       ),
@@ -223,7 +231,8 @@ class ChooseSeatPage extends StatelessWidget {
                         child: Center(
                           child: Text(
                             '3',
-                            style: greyTextStyle.copyWith(fontWeight: regular, fontSize: 16),
+                            style: greyTextStyle.copyWith(
+                                fontWeight: regular, fontSize: 16),
                           ),
                         ),
                       ),
@@ -253,7 +262,8 @@ class ChooseSeatPage extends StatelessWidget {
                         child: Center(
                           child: Text(
                             '4',
-                            style: greyTextStyle.copyWith(fontWeight: regular, fontSize: 16),
+                            style: greyTextStyle.copyWith(
+                                fontWeight: regular, fontSize: 16),
                           ),
                         ),
                       ),
@@ -283,7 +293,8 @@ class ChooseSeatPage extends StatelessWidget {
                         child: Center(
                           child: Text(
                             '5',
-                            style: greyTextStyle.copyWith(fontWeight: regular, fontSize: 16),
+                            style: greyTextStyle.copyWith(
+                                fontWeight: regular, fontSize: 16),
                           ),
                         ),
                       ),
@@ -355,17 +366,33 @@ class ChooseSeatPage extends StatelessWidget {
     }
 
     Widget buttonCheckout() {
-      return CustomButton(
-        title: 'Continue to Checkout',
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => CheckoutPage(),
-            ),
+      return BlocBuilder<SeatCubit, List<String>>(
+        builder: (context, state) {
+          return CustomButton(
+            title: 'Continue to Checkout',
+            onPressed: () {
+              int price = destination.price * state.length;
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CheckoutPage(
+                    TransactionModel(
+                      destination: destination,
+                      amountOfTraveler: state.length,
+                      selectedSeat: state.join(', '),
+                      insurance: true,
+                      refundable: false,
+                      vat: 0.45,
+                      price: price,
+                      grandTotal: price + (price * 0.45).toInt(),
+                    ),
+                  ),
+                ),
+              );
+            },
+            margin: EdgeInsets.only(top: 30, bottom: 46),
           );
         },
-        margin: EdgeInsets.only(top: 30, bottom: 46),
       );
     }
 
