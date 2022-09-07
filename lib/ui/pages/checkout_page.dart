@@ -165,7 +165,7 @@ class CheckoutPage extends StatelessWidget {
             ),
             BookingDetailItem(
               title: 'Seat',
-              valueTitle: transaction.selectedSeat,
+              valueTitle: transaction.selectedSeats,
               colorValue: kBlackColor,
               margin: EdgeInsets.only(top: 16),
             ),

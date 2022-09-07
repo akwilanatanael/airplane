@@ -102,7 +102,7 @@ class TransactionCard extends StatelessWidget {
           ),
           BookingDetailItem(
             title: 'Seat',
-            valueTitle: transactions.selectedSeat,
+            valueTitle: transactions.selectedSeats,
             colorValue: kBlackColor,
             margin: EdgeInsets.only(top: 16),
           ),

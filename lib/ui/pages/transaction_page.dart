@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_is_empty
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/cubit/transaction_cubit.dart';
 import 'package:flutter_application_1/shared/theme.dart';
@@ -10,13 +8,13 @@ class TransactionPage extends StatefulWidget {
   const TransactionPage({Key? key}) : super(key: key);
 
   @override
-  State<TransactionPage> createState() => _TransactionPageState();
+  _TransactionPageState createState() => _TransactionPageState();
 }
 
 class _TransactionPageState extends State<TransactionPage> {
   @override
   void initState() {
-    context.read<TransactionCubit>().fetchTransaction();
+    context.read<TransactionCubit>().fetchTransactions();
     super.initState();
   }
 
@@ -29,19 +27,19 @@ class _TransactionPageState extends State<TransactionPage> {
             child: CircularProgressIndicator(),
           );
         } else if (state is TransactionSuccess) {
-          if (state.transaction.length == 0) {
+          if (state.transactions.length == 0) {
             return Center(
               child: Text('Kamu belum memiliki transaksi'),
             );
           } else {
             return ListView.builder(
-              itemCount: state.transaction.length,
+              itemCount: state.transactions.length,
               padding: EdgeInsets.symmetric(
                 horizontal: defaultMargin,
               ),
               itemBuilder: (context, index) {
                 return TransactionCard(
-                  state.transaction[index],
+                  state.transactions[index],
                 );
               },
             );
