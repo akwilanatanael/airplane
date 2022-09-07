@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_is_empty
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/cubit/transaction_cubit.dart';
@@ -29,7 +29,7 @@ class _TransactionPageState extends State<TransactionPage> {
             child: CircularProgressIndicator(),
           );
         } else if (state is TransactionSuccess) {
-          if (state.transaction.isEmpty) {
+          if (state.transaction.length == 0) {
             return Center(
               child: Text('Kamu belum memiliki transaksi'),
             );

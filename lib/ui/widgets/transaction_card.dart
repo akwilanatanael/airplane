@@ -7,8 +7,8 @@ import 'package:intl/intl.dart';
 import 'booking_detail_item.dart';
 
 class TransactionCard extends StatelessWidget {
-  final TransactionModel transaction;
-  const TransactionCard(this.transaction, {Key? key}) : super(key: key);
+  final TransactionModel transactions;
+  const TransactionCard(this.transactions, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class TransactionCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(defaultRadius),
                   image: DecorationImage(
                     image: NetworkImage(
-                      transaction.destination.imageUrl,
+                      transactions.destination.imageUrl,
                     ),
                     fit: BoxFit.cover,
                   ),
@@ -43,14 +43,14 @@ class TransactionCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      transaction.destination.name,
+                      transactions.destination.name,
                       style: blackTextStyle.copyWith(
                         fontSize: 18,
                         fontWeight: medium,
                       ),
                     ),
                     Text(
-                      transaction.destination.city,
+                      transactions.destination.city,
                       style: greyTextStyle.copyWith(
                         fontWeight: light,
                       ),
@@ -75,7 +75,7 @@ class TransactionCard extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    transaction.destination.rating.toString(),
+                    transactions.destination.rating.toString(),
                     style: blackTextStyle.copyWith(
                       fontWeight: medium,
                     ),
@@ -96,31 +96,31 @@ class TransactionCard extends StatelessWidget {
           ),
           BookingDetailItem(
             title: 'Traveler',
-            valueTitle: '${transaction.amountOfTraveler} person',
+            valueTitle: '${transactions.amountOfTraveler} person',
             colorValue: kBlackColor,
             margin: EdgeInsets.only(top: 10),
           ),
           BookingDetailItem(
             title: 'Seat',
-            valueTitle: transaction.selectedSeat,
+            valueTitle: transactions.selectedSeat,
             colorValue: kBlackColor,
             margin: EdgeInsets.only(top: 16),
           ),
           BookingDetailItem(
             title: 'Insurance',
-            valueTitle: transaction.insurance ? 'YES' : 'NO',
-            colorValue: transaction.insurance ? kGreenColor : kRedColor,
+            valueTitle: transactions.insurance ? 'YES' : 'NO',
+            colorValue: transactions.insurance ? kGreenColor : kRedColor,
             margin: EdgeInsets.only(top: 16),
           ),
           BookingDetailItem(
             title: 'Refundable',
-            valueTitle: transaction.refundable ? 'YES' : 'NO',
-            colorValue: transaction.refundable ? kGreenColor : kRedColor,
+            valueTitle: transactions.refundable ? 'YES' : 'NO',
+            colorValue: transactions.refundable ? kGreenColor : kRedColor,
             margin: EdgeInsets.only(top: 16),
           ),
           BookingDetailItem(
             title: 'VAT',
-            valueTitle: '${(transaction.vat * 100).toStringAsFixed(0)}%',
+            valueTitle: '${(transactions.vat * 100).toStringAsFixed(0)}%',
             colorValue: kBlackColor,
             margin: EdgeInsets.only(top: 16),
           ),
@@ -130,7 +130,7 @@ class TransactionCard extends StatelessWidget {
               locale: 'id',
               symbol: 'IDR',
               decimalDigits: 0,
-            ).format(transaction.price),
+            ).format(transactions.price),
             colorValue: kBlackColor,
             margin: EdgeInsets.only(top: 16),
           ),
@@ -140,7 +140,7 @@ class TransactionCard extends StatelessWidget {
               locale: 'id',
               symbol: 'IDR',
               decimalDigits: 0,
-            ).format(transaction.grandTotal),
+            ).format(transactions.grandTotal),
             colorValue: kPrimaryColor,
             margin: EdgeInsets.only(top: 16),
           ),
