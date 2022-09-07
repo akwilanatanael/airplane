@@ -89,8 +89,7 @@ class TransactionCard extends StatelessWidget {
             children: [
               Text(
                 'Booking Details',
-                style:
-                    blackTextStyle.copyWith(fontSize: 16, fontWeight: semibold),
+                style: blackTextStyle.copyWith(fontSize: 16, fontWeight: semibold),
               ),
             ],
           ),
@@ -128,7 +127,7 @@ class TransactionCard extends StatelessWidget {
             title: 'Price',
             valueTitle: NumberFormat.currency(
               locale: 'id',
-              symbol: 'IDR',
+              symbol: 'IDR ',
               decimalDigits: 0,
             ).format(transactions.price),
             colorValue: kBlackColor,
@@ -138,7 +137,7 @@ class TransactionCard extends StatelessWidget {
             title: 'Grand Total',
             valueTitle: NumberFormat.currency(
               locale: 'id',
-              symbol: 'IDR',
+              symbol: 'IDR ',
               decimalDigits: 0,
             ).format(transactions.grandTotal),
             colorValue: kPrimaryColor,
