@@ -1,12 +1,15 @@
+// ignore_for_file: prefer_final_fields
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_application_1/models/destination_model.dart';
 
 class DestinationService {
-  CollectionReference _destinationRef = FirebaseFirestore.instance.collection('destinations');
+  CollectionReference _destinationReference =
+      FirebaseFirestore.instance.collection('destinations');
 
   Future<List<DestinationModel>> fetchDestinations() async {
     try {
-      QuerySnapshot result = await _destinationRef.get();
+      QuerySnapshot result = await _destinationReference.get();
 
       List<DestinationModel> destinations = result.docs.map(
         (e) {

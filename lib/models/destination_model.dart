@@ -37,5 +37,12 @@ class DestinationModel extends Equatable {
       };
 
   @override
-  List<Object?> get props => [id, name, city, imageUrl, rating, price];
+  List<Object?> get props => [
+        id,
+        name,
+        city,
+        imageUrl,
+        rating,
+        price,
+      ];
 }
